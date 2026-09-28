@@ -1,0 +1,64 @@
+rootProject.name = "omnibus"
+
+include (
+		"domain","core",
+		"service","client"
+		)
+
+// 삭제: data-rdb, bootstrap:seed-launcher, core:core-web, client:s3/kakao/admob/fcm-client,
+//       event:*, worker:*, test-support (NICE 본인인증과 무관)
+
+//domain modules
+include "domain:domain-redis"
+
+findProject(':domain:domain-redis')?.name = 'domain-redis'
+
+include "domain:domain-redis-reactive"
+
+findProject(':domain:domain-redis-reactive')?.name = 'domain-redis-reactive'
+
+include "domain:domain-auth-core"
+
+findProject(':domain:domain-auth-core')?.name = 'domain-auth-core'
+
+include "domain:domain-account-core"
+
+findProject(':domain:domain-account-core')?.name = 'domain-account-core'
+
+include "domain:domain-common"
+
+findProject(':domain:domain-common')?.name = 'domain-common'
+
+//service modules
+include "service:app-service"
+
+findProject(':service:app-service')?.name = 'app-service'
+
+include "service:account-service-webflux"
+
+findProject(':service:account-service-webflux')?.name = 'account-service-webflux'
+
+include "service:common-service"
+
+findProject(':service:common-service')?.name = 'common-service'
+
+//core modules
+include "core:common-core"
+
+findProject(':core:common-core')?.name = 'common-core'
+
+//client modules
+include "client:http-client"
+
+findProject(':client:http-client')?.name = 'http-client'
+
+include "client:nice-client"
+
+findProject(':client:nice-client')?.name = 'nice-client'
+
+buildCache {
+	local {
+		enabled = true
+		removeUnusedEntriesAfterDays = 30
+	}
+}

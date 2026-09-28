@@ -1,0 +1,20 @@
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
+dependencies {
+    //spring data redis
+    implementation "org.springframework.boot:spring-boot-starter-data-redis-reactive"
+    //webflux 기반
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation project(":domain:domain-account-core")
+    implementation project(":domain:domain-auth-core")
+    implementation project(":domain:domain-common")
+    implementation project(":client:nice-client")
+    implementation project(":service:common-service")
+}

@@ -1,0 +1,50 @@
+spring:
+    application:
+        name: OMNIBUS-API
+
+springdoc:
+    swagger-ui:
+        path: /swagger
+        operations-sorter: method
+
+server:
+    port: 8808
+    forward-headers-strategy: NATIVE
+    tomcat:
+        remoteip:
+            remote-ip-header: X-Forwarded-For
+            protocol-header: X-Forwarded-Proto
+
+omnibus:
+    nice:
+        client-id: ${NICE_CLIENT_ID}
+        client-secret: ${NICE_CLIENT_SECRET}
+        token-request-url: https://auth.niceid.co.kr/ido/intc/v1.0/auth/token
+        auth-url-request-url: https://auth.niceid.co.kr/ido/intc/v1.0/auth/url
+        auth-result-request-url: https://auth.niceid.co.kr/ido/intc/v1.0/auth/result
+        return-url: http://localhost:8808/account/verified/sign-up/nice
+        close-url: http://localhost:8808/account/sign-up/nice
+        svc-types:
+            - M
+        method-type: GET
+
+omnibus-redis-local:
+    enabled: false
+    host: localhost
+    port: 6379
+    username: ${REDIS_USERNAME}
+    password: ${REDIS_PASSWORD}
+
+omnibus-pepper:
+    nice:
+        identity:
+            request-url: http://localhost:8808/auth/register/nice
+            ci-pepper: ${NICE_CI_PEPPER}
+            di-pepper: ${NICE_DI_PEPPER}
+
+logging:
+    level:
+        root: INFO
+        com.example.myapp: INFO
+        org.springframework.web: INFO
+        org.hibernate: INFO

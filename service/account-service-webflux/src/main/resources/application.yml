@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: OMNIBUS-ACCOUNT
+
+  profiles:
+    active:
+      - reactive
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+  web:
+    resources:
+      add-mappings: false
+
+server:
+  port: 8090
+  forward-headers-strategy: NATIVE
+
+omnibus:
+    nice:
+        client-id: ${NICE_CLIENT_ID}
+        # NICE 통합인증 API v2 client_secret (발급 필요)
+        client-secret: ${NICE_CLIENT_SECRET}
+        token-request-url: https://auth.niceid.co.kr/ido/intc/v1.0/auth/token
+        auth-url-request-url: https://auth.niceid.co.kr/ido/intc/v1.0/auth/url
+        auth-result-request-url: https://auth.niceid.co.kr/ido/intc/v1.0/auth/result
+        return-url: http://localhost:8808/account/verified/sign-up/nice
+        close-url: http://localhost:8808/account/sign-up/nice
+        svc-types:
+            - M
+        method-type: GET
+
+omnibus-redis-local:
+  host: localhost
+  port: 6379
+  username: ${REDIS_USERNAME}
+  password: ${REDIS_PASSWORD}
+
+# Nice Pepper Keys
+omnibus-pepper:
+    nice:
+        identity:
+            request-url: http://localhost:8808/auth/register/nice
+            ci-pepper: ${NICE_CI_PEPPER}
+            di-pepper: ${NICE_DI_PEPPER}
+
+logging:
+  level:
+    root: INFO
+    com.example.myapp: INFO
+    org.springframework.web: INFO
+    org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping: TRACE
+    org.hibernate: INFO

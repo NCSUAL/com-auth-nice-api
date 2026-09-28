@@ -1,0 +1,13 @@
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
+dependencies {
+    // NiceAuthenticationToken이 AbstractAuthenticationToken을 상속 — 소비자 모듈에 타입 전파
+    api 'org.springframework.security:spring-security-core'
+    // 삭제: api 'org.springframework.boot:spring-boot-starter-data-redis' (Token 엔티티용, 로그인 리프레시 토큰)
+}

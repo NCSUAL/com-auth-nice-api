@@ -1,0 +1,17 @@
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
+dependencies {
+    
+    // HttpStatus, @ResponseBody 등 web 타입을 소비자 모듈에 전파
+    api 'org.springframework.boot:spring-boot-starter-web'
+
+    // tika
+	implementation 'org.apache.tika:tika-core:3.2.2'
+    
+}

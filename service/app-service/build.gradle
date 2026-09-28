@@ -1,0 +1,45 @@
+// 모놀리스 애플리케이션 — 이 모듈이 곧 실행 단위다(omnibus.jar)
+// 삭제: apply plugin: 'org.graalvm.buildtools.native'
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = true
+    archiveFileName = "omnibus.jar"
+}
+
+dependencies {
+
+    //spring boot web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // 삭제: spring-boot-starter-data-jpa, spring-boot-starter-thymeleaf (유저 DB, 템플릿)
+
+    // 삭제: spring-boot-starter-validation
+
+    //swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
+
+    // Security 설정 — Spring Security 전체 스택 필요
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // 삭제: spring-session-data-redis (RedisSessionConfig, 로그인 세션 저장소)
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+    // 삭제: actuator, micrometer-registry-prometheus
+
+    //실시간 핫 리로딩
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // 삭제: h2(test), spring-security-test, mapstruct (유저 매핑·DB 테스트용)
+
+    implementation project(":service:common-service")
+    implementation project(":domain:domain-redis")
+    implementation project(":domain:domain-auth-core")
+    implementation project(":domain:domain-account-core")
+    // 삭제: data-rdb (유저 DB), core-web (로그인 토큰·전역 예외처리)
+
+    implementation project(":client:nice-client")
+    // 삭제: s3-client, kakao-client, admob-client, fcm-client, http-client
+    // 삭제: event-publisher, asset-event, ad-event, notification-event, asset-worker
+}

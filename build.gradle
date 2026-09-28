@@ -1,0 +1,112 @@
+plugins {
+	id 'java'
+	id 'java-library'
+	id 'java-test-fixtures'
+	// 삭제: org.asciidoctor.jvm.convert, org.graalvm.buildtools.native (문서·네이티브 빌드, app-service 외 미사용)
+	id 'org.springframework.boot' version '3.5.13' apply false
+	id 'io.spring.dependency-management' version '1.1.7' apply false
+	id 'com.diffplug.spotless' version '6.25.0' apply true
+}
+
+spotless {
+	groovyGradle {
+		target '*.gradle', 'buildSrc/**/*.gradle'
+		greclipse()
+	}
+	format 'rootMisc', {
+		target '*.md', '.gitignore', '.editorconfig'
+	}
+}
+
+allprojects {
+
+	group = 'com.omnibus'
+	version = '0.0.1-SNAPSHOT'
+
+	repositories {
+		mavenCentral()
+	}
+}
+
+// 삭제: project(":test-support") 블록 (test-support 모듈 제외)
+
+subprojects {
+
+	apply plugin: 'java'
+	apply plugin: 'java-library'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'com.diffplug.spotless'
+
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(21)
+		}
+	}
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:3.5.13"
+		}
+	}
+
+	dependencies {
+
+		// Spring Boot 기본 의존성(context, core ...)
+		implementation 'org.springframework.boot:spring-boot-starter'
+
+		//lombok
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
+		testCompileOnly 'org.projectlombok:lombok'
+		testAnnotationProcessor 'org.projectlombok:lombok'
+
+		//junit
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation platform('org.junit:junit-bom:5.10.2')  // 또는 5.10.1도 안정적
+		testImplementation 'org.junit.jupiter:junit-jupiter-api'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+
+		// 로컬(KST)이랑 CI(UTC) 타임존 달라서 테스트 깨지던 거 때문에 UTC로 고정
+		systemProperty 'user.timezone', 'UTC'
+	}
+
+	// 삭제: src/docs 모듈용 docs.gradle 적용 (docs.gradle 제외)
+
+	// 모든 모듈에 common-core 적용
+	if (path != ":core:common-core") {
+		dependencies {
+			implementation project(":core:common-core")
+		}
+	}
+
+	spotless {
+		java {
+			target 'src/**/*.java'
+			targetExclude(
+					'**/build/**',
+					'**/generated/**',
+					'**/Q*.java'
+					)
+			importOrder('', 'javax', 'java', '\\#')
+			removeUnusedImports()
+			palantirJavaFormat('2.66.0')
+			formatAnnotations()
+		}
+	}
+}
+
+// 삭제: data-rdb, app-service 공통 test-support 설정 (test-support 제외)
+// 삭제: test finalizedBy("syncDocs"), apply from sync.gradle (문서 동기화 제외)

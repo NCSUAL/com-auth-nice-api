@@ -1,0 +1,166 @@
+root = true
+
+# =========================================================
+# 모든 파일 공통 설정
+# =========================================================
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+tab_width = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 120
+
+# =========================================================
+# Java
+# =========================================================
+[*.java]
+indent_style = space
+indent_size = 4
+tab_width = 4
+# 줄바꿈된 라인의 추가 들여쓰기 (메서드 체이닝, 긴 인자 목록 등)
+continuation_indent_size = 8
+max_line_length = 120
+
+# IntelliJ Java 공식 코드 스타일 사용
+ij_java_code_style_defaults = JAVA_OFFICIAL
+
+# =========================================================
+# Wildcard import 방지
+# =========================================================
+# 같은 패키지 import가 많아도 import * 로 바꾸지 않도록 함
+ij_java_class_count_to_use_import_on_demand = 999
+# static 멤버 import도 import static * 로 바꾸지 않도록 함
+ij_java_names_count_to_use_static_import = 999
+# 항상 단일 클래스 import 사용
+ij_java_use_single_class_imports = true
+# wildcard import를 허용할 패키지 목록 없음
+ij_java_packages_to_use_import_on_demand =
+
+# =========================================================
+# Import 정렬 (국내 대기업 표준 패턴)
+# =========================================================
+# 일반 import → javax → java → static import 순서
+# *  : 그 외 모든 import
+# |  : 빈 줄 구분자
+# $* : static import
+ij_java_imports_layout = *,|,javax.**,|,java.**,|,$*
+# static import는 별도 그룹으로 분리
+ij_java_layout_static_imports_separately = true
+# import 그룹 사이 빈 줄 1개
+ij_java_blank_lines_between_import_groups = 1
+
+# =========================================================
+# 중괄호 / 코드 블록 스타일 (K&R)
+# =========================================================
+ij_java_brace_style = end_of_line
+ij_java_class_brace_style = end_of_line
+ij_java_method_brace_style = end_of_line
+ij_java_block_brace_style = end_of_line
+ij_java_do_while_brace_force = always
+ij_java_if_brace_force = always
+ij_java_for_brace_force = always
+ij_java_while_brace_force = always
+
+# =========================================================
+# Annotation 줄바꿈 (Lombok, Spring annotation 다수 사용 대응)
+# =========================================================
+# 클래스/메서드/필드 annotation은 한 줄에 하나씩
+# 예:
+# @Service
+# @RequiredArgsConstructor
+# @Transactional(readOnly = true)
+# public class UserService { ... }
+ij_java_class_annotation_wrap = split_into_lines
+ij_java_method_annotation_wrap = split_into_lines
+ij_java_field_annotation_wrap = split_into_lines
+# 파라미터 annotation은 같은 줄에 유지 (@RequestParam, @PathVariable 등)
+ij_java_parameter_annotation_wrap = off
+ij_java_variable_annotation_wrap = off
+
+# =========================================================
+# 줄바꿈 / 정렬
+# =========================================================
+# 메서드 선언 파라미터가 길면 각각 한 줄씩
+ij_java_method_parameters_wrap = on_every_item
+ij_java_method_parameters_new_line_after_left_paren = true
+ij_java_method_parameters_right_paren_on_new_line = true
+# 메서드 호출 인자도 동일
+ij_java_call_parameters_wrap = on_every_item
+ij_java_call_parameters_new_line_after_left_paren = true
+ij_java_call_parameters_right_paren_on_new_line = true
+# 메서드 체이닝은 줄이 넘칠 때만 줄바꿈
+ij_java_method_call_chain_wrap = on_every_item
+# extends / implements 줄바꿈
+ij_java_extends_list_wrap = on_every_item
+# throws 절 줄바꿈
+ij_java_throws_list_wrap = on_every_item
+# 삼항 연산자는 한 줄로 유지하되 길면 줄바꿈
+ij_java_ternary_operation_wrap = on_every_item
+
+# =========================================================
+# 빈 줄 정책
+# =========================================================
+ij_java_keep_blank_lines_in_code = 1
+ij_java_keep_blank_lines_before_rbrace = 0
+ij_java_keep_blank_lines_in_declarations = 1
+ij_java_blank_lines_around_class = 1
+ij_java_blank_lines_around_method = 1
+ij_java_blank_lines_around_field = 0
+ij_java_blank_lines_after_package = 1
+ij_java_blank_lines_after_imports = 1
+
+# =========================================================
+# 공백 처리
+# =========================================================
+ij_java_space_after_comma = true
+ij_java_space_before_comma = false
+ij_java_space_after_colon = true
+ij_java_space_before_colon = true
+ij_java_space_around_assignment_operators = true
+ij_java_space_around_logical_operators = true
+ij_java_space_around_equality_operators = true
+ij_java_space_around_relational_operators = true
+ij_java_space_around_arithmetic_operators = true
+
+# =========================================================
+# 기타
+# =========================================================
+# final 키워드는 강제하지 않음 (기업마다 다름)
+ij_java_generate_final_locals = false
+ij_java_generate_final_parameters = false
+# javadoc 정렬
+ij_java_doc_align_param_comments = true
+ij_java_doc_align_exception_comments = true
+ij_java_doc_keep_empty_lines = true
+
+# =========================================================
+# Gradle 빌드 파일
+# =========================================================
+[*.gradle]
+indent_size = 4
+
+[*.gradle.kts]
+indent_size = 4
+
+# =========================================================
+# Maven pom.xml
+# =========================================================
+[pom.xml]
+indent_size = 4
+
+
+# =========================================================
+# JSON
+# =========================================================
+[*.json]
+indent_size = 2
+
+
+# =========================================================
+# Makefile (탭 필수)
+# =========================================================
+[Makefile]
+indent_style = tab
