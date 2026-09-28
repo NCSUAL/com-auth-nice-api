@@ -33,7 +33,6 @@ dependencies {
 
     // 삭제: h2(test), spring-security-test, mapstruct (유저 매핑·DB 테스트용)
 
-    implementation project(":service:common-service")
     implementation project(":domain:domain-redis")
     implementation project(":domain:domain-auth-core")
     implementation project(":domain:domain-account-core")

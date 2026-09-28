@@ -13,10 +13,6 @@ include "domain:domain-redis"
 
 findProject(':domain:domain-redis')?.name = 'domain-redis'
 
-include "domain:domain-redis-reactive"
-
-findProject(':domain:domain-redis-reactive')?.name = 'domain-redis-reactive'
-
 include "domain:domain-auth-core"
 
 findProject(':domain:domain-auth-core')?.name = 'domain-auth-core'
@@ -34,24 +30,12 @@ include "service:app-service"
 
 findProject(':service:app-service')?.name = 'app-service'
 
-include "service:account-service-webflux"
-
-findProject(':service:account-service-webflux')?.name = 'account-service-webflux'
-
-include "service:common-service"
-
-findProject(':service:common-service')?.name = 'common-service'
-
 //core modules
 include "core:common-core"
 
 findProject(':core:common-core')?.name = 'common-core'
 
 //client modules
-include "client:http-client"
-
-findProject(':client:http-client')?.name = 'http-client'
-
 include "client:nice-client"
 
 findProject(':client:nice-client')?.name = 'nice-client'

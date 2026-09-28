@@ -13,5 +13,4 @@ dependencies {
     // 삭제: implementation project(":data:data-rdb") (고유번호 hold 포트/모델, 유저 DB)
     implementation project(":domain:domain-common")
     implementation project(":client:nice-client")
-    implementation project(":service:common-service")
 }
